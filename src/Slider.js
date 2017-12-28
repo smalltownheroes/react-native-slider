@@ -11,7 +11,8 @@ import {
   PanResponder,
   View,
   Easing,
-  ViewPropTypes
+  ViewPropTypes,
+  Platform,
 } from "react-native";
 
 import PropTypes from 'prop-types';
@@ -251,18 +252,21 @@ export default class Slider extends PureComponent {
 
     var touchOverflowStyle = this._getTouchOverflowStyle();
 
+    // lower versions have issues correctly rendering the borderRadius when renderToHardwareTextureAndroid is set to true
+    const renderToHardwareTextureAndroid = Platform.OS === 'android' && Platform.Version >= 22;
+
     return (
       <View {...other} style={[mainStyles.container, style]} onLayout={this._measureContainer}>
         <View
           style={[{backgroundColor: maximumTrackTintColor,}, mainStyles.track, trackStyle]}
-          renderToHardwareTextureAndroid={true}
+          renderToHardwareTextureAndroid={renderToHardwareTextureAndroid}
           onLayout={this._measureTrack} />
         <Animated.View
-          renderToHardwareTextureAndroid={true}
+          renderToHardwareTextureAndroid={renderToHardwareTextureAndroid}
           style={[mainStyles.track, trackStyle, minimumTrackStyle]} />
         <Animated.View
           onLayout={this._measureThumb}
-          renderToHardwareTextureAndroid={true}
+          renderToHardwareTextureAndroid={renderToHardwareTextureAndroid}
           style={[
             {backgroundColor: thumbTintColor},
             mainStyles.thumb, thumbStyle,
@@ -278,7 +282,7 @@ export default class Slider extends PureComponent {
           {this._renderThumbImage()}
         </Animated.View>
         <View
-          renderToHardwareTextureAndroid={true}
+          renderToHardwareTextureAndroid={renderToHardwareTextureAndroid}
           style={[defaultStyles.touchArea, touchOverflowStyle]}
           {...this._panResponder.panHandlers}>
           {debugTouchArea === true && this._renderDebugThumbTouchRect(thumbLeft)}
