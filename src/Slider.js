@@ -279,7 +279,7 @@ export default class Slider extends PureComponent {
             }
           ]}
         >
-          {this._renderThumbImage()}
+          {this._renderThumbContent()}
         </Animated.View>
         <View
           renderToHardwareTextureAndroid={renderToHardwareTextureAndroid}
@@ -506,11 +506,18 @@ export default class Slider extends PureComponent {
 
   _renderThumbImage = () => {
     var {thumbImage} = this.props;
-
-    if (!thumbImage) return;
-
-    return <Image source={thumbImage} />;
+    return thumbImage ? <Image source={thumbImage}/> : null;
   };
+
+  _renderCustomThumb = () => {
+    const { renderCustomThumb = () => null } = this.props;
+    return renderCustomThumb();
+  }
+
+  _renderThumbContent(){
+    this._renderCustomThumb() || this._renderThumbImage();
+  }
+
 }
 
 var defaultStyles = StyleSheet.create({
