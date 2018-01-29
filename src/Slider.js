@@ -268,8 +268,9 @@ export default class Slider extends PureComponent {
           onLayout={this._measureThumb}
           renderToHardwareTextureAndroid={renderToHardwareTextureAndroid}
           style={[
-            {backgroundColor: thumbTintColor},
-            mainStyles.thumb, thumbStyle,
+            { backgroundColor: thumbTintColor },
+            mainStyles.thumb,
+            thumbStyle,
             {
               transform: [
                 { translateX: thumbLeft },
@@ -512,11 +513,11 @@ export default class Slider extends PureComponent {
   _renderCustomThumb = () => {
     const { renderCustomThumb = () => null } = this.props;
     return renderCustomThumb();
-  }
+  };
 
-  _renderThumbContent(){
-    this._renderCustomThumb() || this._renderThumbImage();
-  }
+  _renderThumbContent = () => {
+    return this._renderCustomThumb() || this._renderThumbImage();
+  };
 
 }
 
