@@ -2,6 +2,9 @@
   "name": "react-native-slider",
   "version": "0.11.3",
   "description": "A pure JavaScript <Slider /> component for react-native",
+  "publishConfig": {
+    "registry": "https://npm2.smalltownheroes.be/"
+  },
   "main": "lib/Slider.js",
   "files": [
     "lib",
